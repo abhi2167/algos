@@ -1,5 +1,7 @@
 package com.ds.course.algos.lcs;
 
+import java.util.Arrays;
+
 public class LongestCommonSubSequence {
 
 	public static void main(String[] args) {
@@ -15,9 +17,31 @@ public class LongestCommonSubSequence {
 		System.out.println("\nResult :: "+ l.findLcs_dp(s1, s2, 0, 0, dp));
 		System.out.println("\nCounter " + l.counter);
 		System.out.println("\nResult :: "+ l.findLcs_dp_bottom_up(s1, s2));
+		System.out.println("\nResult :: "+ l.findLcs_bu(s1, s2));
 
 	}
-	
+
+	private int findLcs_bu(String s1, String s2) {
+		if(s1.length() > s2.length()) {
+			String temp = s1;
+			s1 = s2;
+			s2 = temp;
+		}
+		int previous[] = new int[s1.length()+1];
+
+		for(int i=s2.length()-1; i>=0; i--) {
+			int current[] = new int[s1.length()+1];
+			for(int j = s1.length()-1; j >= 0; j--) {
+				if(s1.charAt(i) == s2.charAt(j)) {
+					current[j] = 1 + previous[j+1];
+				} else {
+					current[j] = Math.max(previous[j], current[j+1]);
+				}
+			}
+			previous = current;
+		}
+		return previous[0];
+	}
 	private static int counter = 0;
 
 	private int findLcs(String s1, String s2, int i1, int i2) {
