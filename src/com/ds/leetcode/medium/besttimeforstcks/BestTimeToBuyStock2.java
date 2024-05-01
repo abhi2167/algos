@@ -1,4 +1,4 @@
-package com.ds.leetcode.medium;
+package com.ds.leetcode.medium.besttimeforstcks;
 
 /**
  * 

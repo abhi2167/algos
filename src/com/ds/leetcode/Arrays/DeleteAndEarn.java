@@ -1,20 +1,18 @@
 package com.ds.leetcode.Arrays;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DeleteAndEarn {
     public static void main(String[] args) {
         DeleteAndEarn d = new DeleteAndEarn();
-        int nums[] = {8,3,4,7,6,6,9,2,5,8,2,4,9,5,9,1,5,7,1,4};
+        int nums[] = {2,2,3,3,3,4,9, 100};
         //System.out.println("Max number of points that can be earned from deletes " + d.deleteAndEarn_bruteforce(nums));
         System.out.println("Max number of points that can be earned from deletes " + d.deleteAndEarn_tp(nums));
         System.out.println("Max number of points that can be earned from deletes " + d.deleteAndEarn_bu(nums));
         System.out.println("Max number of points that can be earned from deletes " + d.deleteAndEarn_bu_space_optimized(nums));
     }
+
 
     public int deleteAndEarn_bu_space_optimized(int[] nums) {
         HashMap<Integer, Integer> points = new HashMap<>();
@@ -65,7 +63,10 @@ public class DeleteAndEarn {
             maxNum = Math.max(maxNum, num);
             points.put(num, points.getOrDefault(num, 0) + num);
         }
-        return deleteAndEarn(points, cache, maxNum);
+        int res = deleteAndEarn(points, cache, maxNum);
+        System.out.println(points);
+        System.out.println(cache);
+        return  res;
     }
 
     private int deleteAndEarn(HashMap<Integer, Integer> points, HashMap<Integer, Integer> cache, int num) {
@@ -82,6 +83,7 @@ public class DeleteAndEarn {
         cache.put(num, Math.max(currentGain + deleteAndEarn(points, cache,num - 2), deleteAndEarn(points, cache,num-1)));
         return  cache.get(num);
     }
+
     // Brute force using recursion
     public int deleteAndEarn_bruteforce(int[] nums) {
         return deleteAndEarn(nums, 0);

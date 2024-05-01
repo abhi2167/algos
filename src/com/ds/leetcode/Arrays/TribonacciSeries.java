@@ -6,7 +6,7 @@ public class TribonacciSeries {
         TribonacciSeries t = new TribonacciSeries();
         System.out.println("nth number of tribonacci series is : " + t.tribonacci(25));
         System.out.println("nth number of tribonacci series is : " + t.tribonacci_bu(0));
-        System.out.println("nth number of tribonacci series is : " + t.tribonacci_bu_efficient_space(25));
+        System.out.println("nth number of tribonacci series is : " + t.tribonacci_bu_efficient_space(4));
     }
 
     public int tribonacci_bu_efficient_space(int n) {
@@ -17,13 +17,14 @@ public class TribonacciSeries {
             return 1;
         }
         int a=0, b = 1, c = 1;
-        for(int i=0; i < n-2; i++) {
-            int temp = a + b + c;
+        int temp = 0;
+        for(int i=3; i <= n; i++) {
+            temp = a + b + c;
             a = b;
             b = c;
             c = temp;
         }
-        return c;
+        return temp;
     }
 
     public int tribonacci_bu(int n) {

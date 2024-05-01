@@ -9,7 +9,30 @@ public class MinCostToClimbStairs {
         int [] cost = {10, 15, 20};
         System.out.println("Min cost to climb stairs == " + o.minCostClimbingStairs(cost));
         System.out.println("Min cost to climb stairs bu == " + o.minCostClimbingStairs_bu(cost));
-        System.out.println("Min cost to climb stairs bu == " + o.minCostClimbingStairs_bu2(cost));
+        System.out.println("Min cost to climb stairs bu2 == " + o.minCostClimbingStairs_bu2(cost));
+        System.out.println("Min cost to climb stairs bu3 == " + o.minCostClimbingStairs_bu3(cost));
+        System.out.println("Min cost to climb stairs bu4 == " + o.minCostClimbingStairs_bu4(cost));
+    }
+
+    public int minCostClimbingStairs_bu4(int[] cost) {
+        int oneStepBack = 0;
+        int twoStepBack = 0;
+        for(int i = 2; i <= cost.length; i++) {
+            int temp = oneStepBack;
+            oneStepBack = Math.min(cost[i-1] + oneStepBack, cost[i-2] + twoStepBack);
+            twoStepBack = temp;
+        }
+        return oneStepBack;
+    }
+
+    public int minCostClimbingStairs_bu3(int[] cost) {
+        int[] dp = new int[cost.length+1];
+        dp[0] = 0;
+        dp[1] = 0;
+        for(int i = 2; i < dp.length; i++) {
+            dp[i] = Math.min(cost[i-1] + dp[i-1], cost[i-2] + dp[i-2]);
+        }
+        return dp[dp.length-1];
     }
 
     public int minCostClimbingStairs_bu(int[] cost) {

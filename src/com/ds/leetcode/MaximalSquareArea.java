@@ -1,5 +1,7 @@
 package com.ds.leetcode;
 
+import java.util.Arrays;
+
 public class MaximalSquareArea {
 
     public static void main(String[] args) {
@@ -8,6 +10,7 @@ public class MaximalSquareArea {
         System.out.println(" Maximum area == " + m.maximalSquare(matrix));
         System.out.println(" Maximum area == " + m.maximalSquare_bu(matrix));
     }
+
 
     public int maximalSquare_bu(char[][] matrix) {
         int rows = matrix.length + 1;
@@ -34,13 +37,13 @@ public class MaximalSquareArea {
                     int currentArea = 1;
                     while(currentArea + i < matrix.length && currentArea + j < matrix[i].length && isSquare) {
                         for(int k=j; k <= currentArea+j; k++) {
-                            if(matrix[i][k] != '1') {
+                            if(matrix[i+currentArea][k] != '1') {
                                 isSquare = false;
                                 break;
                             }
                         }
                         for(int k=i; k <= currentArea+i; k++) {
-                            if(matrix[k][k] != '1') {
+                            if(matrix[k][j+currentArea] != '1') {
                                 isSquare = false;
                                 break;
                             }

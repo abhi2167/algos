@@ -1,6 +1,10 @@
 package com.ds.leetcode.Arrays;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MaximumScoreFromMultiplication {
     public static void main(String[] args) {
@@ -46,5 +50,18 @@ public class MaximumScoreFromMultiplication {
         dp[start][end] = Math.max((nums[start] * multipliers[j]) + maximumScore(nums, multipliers, start+1, end, j+1, dp),
                 (nums[end] * multipliers[j]) + maximumScore(nums, multipliers, start, end-1, j+1, dp));
         return dp[start][end];
+    }
+
+
+// top down with reduced state
+    public int maximumScore(int[] nums, int[] multipliers, int left, int op, int[][] dp) {
+
+        if (op == multipliers.length) {
+            return 0;
+        }
+        int right = (nums.length-1) - (op - left);
+        dp[op][left] = Math.max((nums[left] * multipliers[op]) + maximumScore(nums, multipliers, left+1, op+1, dp),
+                (nums[right] * multipliers[op]) + maximumScore(nums, multipliers, left, op+1, dp));
+        return dp[op][left];
     }
 }

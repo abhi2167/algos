@@ -70,7 +70,6 @@ public class CoinChangeII {
         if(coins[currentIndex] > amount) {
             return dp[currentIndex][amount] = change(amount, coins, dp, currentIndex+1);
         }
-
         return dp[currentIndex][amount] = change(amount, coins, dp, currentIndex+1) + change(amount - coins[currentIndex], coins, dp, currentIndex);
     }
 

@@ -6,9 +6,11 @@ public class TrieMain {
 		Trie t  =new Trie();
 		
 		//CASE#1
+		t.insert("bcd");
 		t.insert("bcde");
-		t.insert("bckg");
-		t.delete("bcde");
+		t.insert("bcdf");
+		t.insert("bcdgj");
+		t.delete("bcd");
 		t.search("bcde");
 		t.search("bckg");
 		
