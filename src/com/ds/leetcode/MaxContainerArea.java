@@ -25,6 +25,7 @@ public class MaxContainerArea {
 		MaxContainerArea a = new MaxContainerArea();
 		System.out.println("Result :: "+ a.maxArea1(height));
 		System.out.println("Result :: "+ a.maxArea2(height));
+		System.out.println("Result topdown :: "+ a.maxArea_tp(height));
 	}
 
     public int maxArea1(int[] height) {
@@ -56,4 +57,17 @@ public class MaxContainerArea {
         }
         return maxArea;
     }
+
+	public int maxArea_tp(int[] height) {
+		int dp[][] = new int[height.length][height.length];
+		return maxArea_tp(height, 0, height.length-1, dp);
+	}
+
+	public int maxArea_tp(int[] height, int left, int right, int[][] dp) {
+		if(left >= right) {
+			return 0;
+		}
+		int a1 = Math.min(height[left], height[right]) * (right - left);
+		return dp[left][right] = Math.max(a1, Math.max(maxArea_tp(height, left+1, right, dp), maxArea_tp(height, left, right-1, dp)));
+	}
 }

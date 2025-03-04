@@ -1,6 +1,8 @@
 package com.ds.leetcode.Arrays;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ThreeSum {
 
@@ -11,9 +13,46 @@ public class ThreeSum {
                      // -4, -1, -1, 0, 1, 2
         int [] nums = {-1,0,1,2,-1,-4};
         System.out.println(s.threeSum(nums));
+        System.out.println(s.threeSum2(nums));
         System.out.println(s.threeSumHashSet(nums));
         System.out.println(s.threeSumNoSort(nums));
     }
+
+    public List<List<Integer>> threeSum2(int[] nums) {
+        List<List<Integer>> triplets = new ArrayList<>();
+        Arrays.sort(nums);
+
+        for(int i =0; i < nums.length && nums[i] <= 0; i++) {
+            if(i != 0 && nums[i] == nums[i-1]) {
+                continue;
+            }
+            int currentNum = nums[i];
+            int left = i + 1;
+            int right = nums.length-1;
+            int sum = 0;
+            while(left < right) {
+                int currentCompliment = -nums[i];
+                sum = nums[left] + nums[right];
+                if( sum == currentCompliment) {
+                    triplets.add(Stream.of(currentNum, nums[left], nums[right]).collect(Collectors.toList()));
+                    left++;
+                    right--;
+                    while(left < right && nums[left] == nums[left-1]) {
+                        left++;
+                    }
+                } else if (sum > currentCompliment) {
+                    right--;
+                } else {
+                    left++;
+                }
+            }
+        }
+        return triplets;
+    }
+
+
+
+
 
 
     // use set of sorted listed to store unique triplets

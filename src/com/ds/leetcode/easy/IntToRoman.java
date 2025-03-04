@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
 Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
@@ -213,4 +215,32 @@ public class IntToRoman {
     	System.out.println(result.length());
     	return result.toString();
     }
+
+	private String intToRoman4(int n) {
+		StringBuilder result = new StringBuilder();
+		List<Integer> values = Stream.of(1000, 900, 500, 400, 100, 90, 50, 40, 10,9,5,4,1).collect(Collectors.toList());
+		Map<Integer, String> intToString = new HashMap<>();
+		intToString.put(1000, "M");
+		intToString.put(900, "CM");
+		intToString.put(500, "D");
+		intToString.put(400, "CD");
+		intToString.put(100, "C");
+		intToString.put(90, "XC");
+		intToString.put(50, "L");
+		intToString.put(40, "XL");
+		intToString.put(10, "X");
+		intToString.put(9, "IX");
+		intToString.put(5, "V");
+		intToString.put(4, "IV");
+		intToString.put(1, "I");
+		int num = n;
+		for(int i = 0; i < values.size(); i++) {
+			while(values.get(i) <= num) {
+				num -= values.get(i);
+				result.append(intToString.get(values.get(i)));
+			}
+		}
+		return result.toString();
+	}
+
 }

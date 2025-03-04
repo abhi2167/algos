@@ -1,4 +1,4 @@
-package com.ds.leetcode.Arrays;
+package com.ds.leetcode.Arrays.SlidingWindow;
 
 import java.util.*;
 

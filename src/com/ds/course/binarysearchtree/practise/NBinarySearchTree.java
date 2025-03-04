@@ -14,6 +14,7 @@ public class NBinarySearchTree {
         root = insert(root, val);
     }
 
+
     public Node search(int val) {
         return search(root, val);
     }

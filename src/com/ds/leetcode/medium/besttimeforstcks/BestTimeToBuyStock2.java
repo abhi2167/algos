@@ -1,5 +1,8 @@
 package com.ds.leetcode.medium.besttimeforstcks;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * 
 You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
@@ -38,6 +41,23 @@ public class BestTimeToBuyStock2 {
 		System.out.println("Result is :: "+ b.maxProfit(prices));
 		System.out.println("Result is :: "+ b.maxProfit2(prices));
 		System.out.println("Result is :: "+ b.maxProfit3(prices));
+		System.out.println("Result is :: "+ b.maxProfit_stack(prices));
+	}
+
+	// own implementation that works
+	public int maxProfit_stack(int[] prices) {
+		int maxProfit = 0;
+		Deque<Integer> stack = new ArrayDeque<>();
+		for(int i = 0; i < prices.length; i++) {
+			while(stack.peekLast() != null && stack.peekLast() >= prices[i]) {
+				while(stack.peekLast() != null) stack.pollLast();
+			}
+			if (stack.peekLast() != null) {
+				maxProfit += prices[i] - stack.peekLast();
+			}
+			stack.offerLast(prices[i]);
+		}
+		return maxProfit;
 	}
 	
 	public int maxProfit3(int[] prices) {
@@ -100,4 +120,26 @@ public class BestTimeToBuyStock2 {
     	}
     	return totalProfit; 
     }
+
+	public int maxProfit_tp(int[] prices) {
+		Integer dp[][] = new Integer[prices.length][2];
+		return maxProfit(prices, 0, 0, dp);
+	}
+
+	public int maxProfit(int[] prices, int currentDay, int holding, Integer[][] dp) {
+		if(currentDay == prices.length-1) {
+			return holding == 1 ? prices[currentDay] : 0;
+		}
+		if(dp[currentDay][holding] != null) {
+			return dp[currentDay][holding];
+		}
+		int doNothing = maxProfit(prices, currentDay + 1, holding, dp);
+		int doSomething;
+		if(holding == 0) {
+			doSomething = -prices[currentDay] + maxProfit(prices, currentDay+1, 1, dp);
+		} else {
+			doSomething = prices[currentDay] + maxProfit(prices, currentDay+1, 0, dp);
+		}
+		return dp[currentDay][holding] = Math.max(doSomething, doNothing);
+	}
 }

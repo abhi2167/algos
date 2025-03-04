@@ -61,5 +61,4 @@ public class MaximalSquareArea {
         }
         return maxSqLen * maxSqLen;
     }
-
 }

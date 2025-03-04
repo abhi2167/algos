@@ -13,7 +13,6 @@ public class CanJump {
         System.out.println("Can Jump Result canJump_bu_efficient ===> "+ c.canJump_bu_efficient(nums));
     }
 
-
     public boolean canJump_bu_efficient(int[] nums) {
         int leftMostGoodIndex = nums.length-1;
         for(int i=nums.length-2; i >=0; i--) {
